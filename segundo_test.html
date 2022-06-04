@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>juego del ahorcado</title>
+	<style type="text/css">
+		*{
+			border: 0%;
+			margin: 0%;
+			padding: 0%;
+		}
+		section{
+			box-sizing: border-box;
+			display: inline-block;
+			padding: 1rem;
+			vertical-align: top;
+			width: 40%;
+			}
+			#lienzo{
+				border: 2px solid steelblue;
+				width: 300px;
+				height: 200px;
+		    }
+		input[type="text"]{
+			background-color: #eee;
+			border: 1px solid gray;
+			font-size: 1.7rem;
+		}
+		input[type="button"]{
+			background-color: steelblue;
+			color: white;
+			font-size: 1.7rem;
+			padding: 0.3rem;
+		}
+		div{
+			font-size: 1.7rem;
+			margin: 0.5rem;
+			padding: 0.3rem;
+		}
+		div#frase{
+			border: 1px solid steelblue;
+			padding: 0.4rem;
+			margin: 0.5rem;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<section>
+		<input type="text" id="letra" placeholder="Escribe la letra"
+		> <input type="button" id="boton" value="comprobar"> <br>
+		<div id="frase">
+        </div>
+	    <div id =" vidas">
+	        cuanta vidas te queda son 5
+        </div>
+    </section>
+    <section>
+    	<canvas>
+    		tu navegador no aserta canvas 
+    	</canvas>
+    </section>
+    <script type="text/javascript">
+    	let palabras = Array("auronplay","rubiuz","ibai","thegreg","goes","tanizen");
+    	let palabraec = "";//palabra encriptada 
+    	let palabraAdi = "";//palabra que se adivida 
+    	let vidas = 5;
+    	document.getElementById("boton").addEventListener("click",comprobar);
+
+    	iniciar();
+
+    	function iniciar(){
+    		palabraOc=palabras[Math.floor(Math.random()*palabras.length)];
+    		for (let i=0;i<palabraOc.length;i++) {
+    			palabraAdi=palabraAdi+"_ ";
+    		}
+    		document.getElementById("frase").innerHTML=palabraAdi;
+    	}
+
+    	function comprobar(){ 
+    	    let letra = document.getElementById("letra").value.toLowerCase();
+    		palabraOc = palabraOc. toLowerCase();
+    		let nuevo = "";
+    	    for (let i=;i<palabraOc.length;i++) {
+    		 	if(letra==palabraOc[i]){
+    		 		nuevo = nuevo + letra + "";
+    		 	}else{  
+    		 		nuevo =  nuevo + palabraAdi[i*2]; + " ";
+    		 	}
+    		 }
+    		if (nuevo==palabraAdi){
+    			vidas--;
+    			document.getElementById("vidas").innerHTML="el numero de vidas que quedan son: " + vidas;
+    		}
+    		palabraAdi= nuevo; 
+    		document.getElementById("frase").innerHTML=palabraAdi
+
+    		if(vidas==0)
+    			alert("perdiste :( ");
+    	}
+    	if(palabraAdi.search("_")==-1){
+    		alert("ganastes :D ")
+    	}
+        document.getElementById("letra").value="";
+    	document.getElementById("letra").focus();
+
+    	dibujar();
+
+        }
+
+        function dibujar(){
+
+        }
+        	var canvas = document.getElementById('lienzo');
+        	if (canvas.getcontext) {
+        	    var ctx = canvas.getcontext('2d');
+
+                 ctx.beginpath();
+                 ctx.moveTo(30,200);
+                 ctx.lineto(30,10);
+                 ctx.stroke();
+
+        	    ctx.beginpath();
+        	    ctx.arc(250, 40, 20, 0, Math.PI * 2,);
+        	    ctx.stroke();
+                 
+                 ctx.beginpath();
+                 ctx.moveTo(150,60);
+                 ctx.lineto(150,100);
+                 ctx.stroke();
+
+        	}
+        }
+
+
+
+
+
+
+
+
+
+
+       		
